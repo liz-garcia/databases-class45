@@ -8,28 +8,13 @@ const connection = mysql.createConnection({
   password: "hyfpassword",
 });
 
+// Connect to the database
 connection.connect((err) => {
   if (err) {
     console.log("Connection error!", err);
   } else {
-    console.log("Connection success!")
+    console.log("Connection success!");
   }
-
-  meetupQueries.forEach((currentQuery) => {
-    connection.query(currentQuery, (err) => {
-      if (err) {
-        console.log("Oops! Something went wrong.", err);
-      } else {
-        console.log("Query Success!");
-      }
-    });
-  });
-
-  // End the database connection
-  connection.end((err) => {
-    if (err) throw err;
-    console.log("Connection ended.");
-  });
 });
 
 // Create database 'meetup'
@@ -101,3 +86,20 @@ const meetupQueries = [
   createMeetingTable,
   ...insertData,
 ];
+
+// Execute queries
+meetupQueries.forEach((currentQuery) => {
+  connection.query(currentQuery, (err) => {
+    if (err) {
+      console.log("Oops! Something went wrong.", err);
+    } else {
+      console.log("Query Success!");
+    }
+  });
+});
+
+// End the database connection
+connection.end((err) => {
+  if (err) throw err;
+  console.log("Connection ended.");
+});
