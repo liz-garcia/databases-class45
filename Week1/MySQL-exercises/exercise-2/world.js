@@ -29,14 +29,15 @@ const selectQueries = [
   'SELECT population FROM city WHERE name = "Rotterdam"',
   'SELECT name, surfacearea FROM country ORDER BY surfacearea DESC LIMIT 10',
   'SELECT name, population FROM city ORDER BY population DESC LIMIT 10',
-  'SELECT population FROM country WHERE name LIKE "%world%"'
+  'SELECT SUM(population) AS total_world_population FROM country;'
 ];
 
 // Execute select queries
 selectQueries.forEach((query, index) => {
   connection.query(query, (err, results) => {
     if (err) throw err;
-    console.log(`Query ${index + 1}:`, results);
+    console.log(`Query ${index + 1}: ${query}`);
+    console.table(results);
   });
 });
 
