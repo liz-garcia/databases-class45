@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-export const dbConnectAndQuery = async (queries, resultsQuery) => {
+export const dbConnectAndQuery = async (queries, resultQueries) => {
   try {
     // Make a connection using login credentials
     const connection = await mysql.createConnection({
@@ -31,9 +31,12 @@ export const dbConnectAndQuery = async (queries, resultsQuery) => {
 
     // Show Results
     try {
-      const [results] = await connection.query(resultsQuery);
-      console.log("Results:");
-      console.table(results);
+      for (const query of resultQueries) {
+        const [results] = await connection.query(query);
+        console.log(`Results for query: ${query}`);
+        console.table(results);
+        console.log(`\n`);
+      }
     } catch (resultsErr) {
       console.error("Error retrieving results:", resultsErr);
       throw resultsErr;

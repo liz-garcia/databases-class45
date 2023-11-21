@@ -2,12 +2,12 @@ USE authors_researchPapers;
 
 -- Create authors table
 CREATE TABLE authors (
-  author_id INT PRIMARY KEY,
+  author_id INT PRIMARY KEY AUTO_INCREMENT,
   author_name VARCHAR(255),
   university VARCHAR(255),
   date_of_birth DATE,
   h_index INT,
-  gender VARCHAR(10)
+  gender ENUM('female', 'male')
 );
 
 -- Add the mentor column

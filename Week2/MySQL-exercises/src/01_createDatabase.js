@@ -6,12 +6,12 @@ import { CREATE_DATABASE_SQL_FILE } from "../constants.js";
 const createDatabaseQueries = readAndProcessSqlFile(CREATE_DATABASE_SQL_FILE);
 
 // The resulting list should include: "authors_researchPapers"
-const queryShowResults = `SHOW DATABASES;`;
+const resultQueries = [`SHOW DATABASES;`];
 
 export const createDatabase = async () => {
   try {
     console.log("\x1b[1mCreating database:\x1b[0m");
-    await dbConnectAndQuery(createDatabaseQueries, queryShowResults);
+    await dbConnectAndQuery(createDatabaseQueries, resultQueries);
   } catch (err) {
     console.log("\nOops! Something went wrong.\n\n", err);
   }
