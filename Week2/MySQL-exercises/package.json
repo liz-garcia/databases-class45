@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "name": "mysql-exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liz García",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0"
+  }
+}

@@ -1,0 +1,1 @@
+export const CREATE_DATABASE_SQL_FILE = "./db/structure/01_createDatabase.sql";
