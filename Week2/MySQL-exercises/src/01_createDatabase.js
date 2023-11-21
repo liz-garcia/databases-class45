@@ -3,14 +3,16 @@ import { readAndProcessSqlFile } from "./processSqlFile.js";
 import { CREATE_DATABASE_SQL_FILE } from "../constants.js";
 
 // Create array from 01_createDatabase.sql file
-const createDatabaseQueries = await readAndProcessSqlFile(CREATE_DATABASE_SQL_FILE);
+const createDatabaseQueries = readAndProcessSqlFile(CREATE_DATABASE_SQL_FILE);
 
-export const createDatabase = () => {
+// The resulting list should include: "authors_researchPapers"
+const queryShowResults = `SHOW DATABASES;`;
+
+export const createDatabase = async () => {
   try {
-    dbConnectAndQuery(createDatabaseQueries);
+    console.log("\x1b[1mCreating database:\x1b[0m");
+    await dbConnectAndQuery(createDatabaseQueries, queryShowResults);
   } catch (err) {
-    console.log("Oops! Something went wrong.", err);
+    console.log("\nOops! Something went wrong.\n\n", err);
   }
 };
-
-createDatabase();
