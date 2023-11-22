@@ -29,22 +29,26 @@ export const dbConnectAndQuery = async (queries, resultQueries) => {
       }
     }
 
-    // Show Results
-    try {
-      for (const query of resultQueries) {
-        const [results] = await connection.query(query);
-        console.log(`Results for query: ${query}`);
-        console.table(results);
-        console.log(`\n`);
+    // If the argument resultQueries is provided:
+    if (resultQueries) {
+      // Show Results
+      try {
+        for (const query of resultQueries) {
+          const [results] = await connection.query(query);
+          console.log(`Results for query: ${query}`);
+          console.table(results);
+          console.log(`\n`);
+        }
+      } catch (resultsErr) {
+        console.error("Error retrieving results:", resultsErr);
+        throw resultsErr;
       }
-    } catch (resultsErr) {
-      console.error("Error retrieving results:", resultsErr);
-      throw resultsErr;
     }
 
     // Close the MySQL connection
     await connection.end();
   } catch (err) {
     console.log("Connection error!", err);
+    connection.end();
   }
 };

@@ -5,7 +5,7 @@ import { insertData } from "./src/04_insertData.js";
 import { joinQueries } from "./src/05_joinQueries.js";
 import { aggregateQueries } from "./src/06_aggregateQueries.js";
 
-// npm start for running each file
+// npm start
 const startDatabase = async () => {
   try {
     await createDatabase();
