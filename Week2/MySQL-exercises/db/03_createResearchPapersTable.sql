@@ -19,7 +19,4 @@ CREATE TABLE author_paper (
   FOREIGN KEY (paper_id) REFERENCES researchPapers(paper_id)
 );
 
-ALTER TABLE researchPapers
-ADD COLUMN number_of_authors INT;
-
 
