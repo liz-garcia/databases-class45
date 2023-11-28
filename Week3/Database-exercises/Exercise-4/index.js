@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const { seedDatabase } = require("./seedDatabase.js");
@@ -36,7 +38,10 @@ async function findEpisodesExercises(client) {
     .db(process.env.DB_NAME)
     .collection("bob_ross_episodes")
     .findOne({ episode: "S02E02" });
-  console.log(`The title of episode 2 in season 2 is ${episode2Season2.title}`);
+  console.log('Episode 2 in Season 2:', episode2Season2);
+  console.log(`
+    The title of episode 2 in season 2 is ${episode2Season2.title}`
+  );
 
   const blackRiverEpisode = await client
     .db(process.env.DB_NAME)
@@ -103,9 +108,8 @@ async function main() {
       `You did not set up the environment variables correctly. Did you create a '.env' file and add a package to create it?`
     );
   }
+
   const client = new MongoClient(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
   });
 
