@@ -20,7 +20,8 @@ async function runTransaction(debitAccount, creditAccount, amount) {
   const connection = await pool.getConnection();
 
   try {
-    // Create new database with initial data
+    // Create new database 'hyf_accounts_transactions'
+    // with initial data (tables and sample values)
     for (const dataQuery of initialDataQueries) {
       await connection.query(dataQuery);
     }
