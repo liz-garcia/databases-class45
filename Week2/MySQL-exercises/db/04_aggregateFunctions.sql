@@ -1,6 +1,6 @@
 USE authors_researchPapers;
 
--- Query 1: All research papers and the number of authors that wrote that paper
+-- All research papers and the number of authors that wrote that paper
 SELECT
   rp.paper_id,
   rp.paper_title,
@@ -10,11 +10,11 @@ FROM
 LEFT JOIN
   author_paper AS ap ON rp.paper_id = ap.paper_id
 GROUP BY
-  rp.paper_id, rp.paper_title, rp.conference, rp.publish_date;
+  rp.paper_id;
 
 
 
--- Query 2: Sum of the research papers published by all female authors
+-- Sum of the research papers published by all female authors
 SELECT
     COUNT(DISTINCT rp.paper_id) AS num_papers
 FROM
@@ -27,7 +27,7 @@ WHERE
     a.gender = 'female';
 
 
--- -- Query 3: Average h-index of all authors per university
+-- Average h-index of all authors per university
 SELECT
     university,
     AVG(h_index) AS avg_h_index
@@ -37,7 +37,7 @@ GROUP BY
     university;
 
 
--- -- Query 4: Sum of the research papers of the authors per university
+-- Sum of the research papers of the authors per university
 SELECT
     university,
     COUNT(DISTINCT rp.paper_id) AS num_papers
@@ -51,7 +51,7 @@ GROUP BY
     university;
 
 
--- -- Query 5: Minimum and maximum h-index of all authors per university
+-- Minimum and maximum h-index of all authors per university
 SELECT
     university,
     MIN(h_index) AS min_h_index,

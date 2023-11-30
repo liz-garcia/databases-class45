@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-export const dbConnectAndQuery = async (queries, resultQueries) => {
+export const dbConnection = async (queries) => {
   try {
     // Make a connection using login credentials
     const connection = await mysql.createConnection({
@@ -21,27 +21,19 @@ export const dbConnectAndQuery = async (queries, resultQueries) => {
     // Execute SQL queries
     for (const [index, query] of queries.entries()) {
       try {
-        await connection.query(query);
-        console.log(`Query ${index + 1} Success!`);
-      } catch (queryErr) {
-        console.error(`Error executing SQL query ${index + 1}:`, queryErr);
-        throw queryErr;
-      }
-    }
+        const [results] = await connection.query(query);
 
-    // If the argument resultQueries is provided:
-    if (resultQueries) {
-      // Show Results
-      try {
-        for (const query of resultQueries) {
-          const [results] = await connection.query(query);
-          console.log(`Results for query: ${query}`);
+        // If query statement includes 'SELECT'
+        if (query.includes("SELECT")) {
+          console.log(`${query}`);
           console.table(results);
-          console.log(`\n`);
         }
-      } catch (resultsErr) {
-        console.error("Error retrieving results:", resultsErr);
-        throw resultsErr;
+      } catch (queryErr) {
+        console.error(
+          `Error executing SQL query ${index + 1}: ${query}\n\n`,
+          queryErr
+        );
+        throw queryErr;
       }
     }
 
@@ -49,6 +41,5 @@ export const dbConnectAndQuery = async (queries, resultQueries) => {
     await connection.end();
   } catch (err) {
     console.log("Connection error!", err);
-    connection.end();
   }
 };

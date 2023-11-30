@@ -1,22 +1,21 @@
-import { createDatabase } from "./src/01_createDatabase.js";
-import { createAuthorsTable } from "./src/02_createAuthorsTable.js";
-import { createResearchPapersTable } from "./src/03_createResearchPapersTable.js";
-import { insertData } from "./src/04_insertData.js";
-import { joinQueries } from "./src/05_joinQueries.js";
-import { aggregateQueries } from "./src/06_aggregateQueries.js";
+import { dbConnection } from "./src/dbConnection.js";
+import { KEYS_QUERIES, RELATIONSHIPS_QUERIES, JOINS_QUERIES, AGGREGATE_FUNCTIONS_QUERIES } from "./src/processSqlFiles.js";
 
 // npm start
-const startDatabase = async () => {
+const mySqlExercises = async () => {
   try {
-    await createDatabase();
-    await createAuthorsTable();
-    await createResearchPapersTable();
-    await insertData();
-    await joinQueries();
-    await aggregateQueries();
+    // Create database and tables
+    console.log("\nCreating initial data...");
+    await dbConnection(KEYS_QUERIES);
+    await dbConnection(RELATIONSHIPS_QUERIES);
+    console.log("\x1b[34m\x1b[1mSuccessful database creation!\x1b[0m");
+    // Retrieve information
+    console.log("\nRetrieving data...");
+    await dbConnection(JOINS_QUERIES);
+    await dbConnection(AGGREGATE_FUNCTIONS_QUERIES);
   } catch (err) {
-    console.log("Oops! There was an error:", err);
+    console.log("Oops! There was an error.\n", err);
   }
 };
 
-startDatabase();
+mySqlExercises();
