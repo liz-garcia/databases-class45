@@ -70,28 +70,16 @@ async function getContinentsInfoByYearAndAge(year, age) {
         },
         {
           $group: {
-            _id: "$Country",
+            _id: "$_id",
             Country: { $first: "$Country" },
             Year: { $first: "$Year" },
             Age: { $first: "$Age" },
             M: { $sum: "$M" },
             F: { $sum: "$F" },
             TotalPopulation: { $sum: { $add: ["$M", "$F"] } },
-            originalId: { $first: "$_id" },
           },
         },
-        {
-          $project: {
-            _id: "$originalId",
-            Country: "$Country",
-            Year: "$_id.Year",
-            Age: "$Age",
-            M: "$M",
-            F: "$F",
-            TotalPopulation: "$TotalPopulation",
-          },
-        },
-      ];      
+      ];
 
       const continentResult = await collection.aggregate(pipeline).toArray();
       results.push(...continentResult);
